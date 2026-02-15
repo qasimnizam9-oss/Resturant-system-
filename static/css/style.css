@@ -1,0 +1,207 @@
+/* Import Luxury Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;600&display=swap');
+
+/* Custom Professional Touches */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fcfaf8;
+    color: #333;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, .navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+}
+
+/* Hero Section Overlay */
+.hero-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    background: rgba(0, 0, 0, 0.65); /* Ensures text is readable over any image */
+    width: 100%;
+    height: 100%;
+}
+
+/* Gold Theme Buttons & Elements */
+.text-gold {
+    color: #c5a059 !important;
+}
+
+.btn-gold {
+    background-color: #c5a059;
+    border-color: #c5a059;
+    color: white;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+
+.btn-gold:hover {
+    background-color: #a68546;
+    border-color: #a68546;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(197, 160, 89, 0.3);
+}
+
+/* Original Warning Overrides (Now Gold) */
+.btn-warning {
+    background-color: #d4af37; 
+    border-color: #d4af37;
+    color: #fff;
+}
+
+.btn-warning:hover {
+    background-color: #b8962e;
+    color: #fff;
+}
+
+/* Hover effects for Menu Cards */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 15px;
+    border: none;
+    overflow: hidden;
+    background: #fff;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+}
+
+/* Reservation Form Card */
+.reservation-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+}
+
+/* Icon Circles */
+.icon-circle {
+    width: 80px;
+    height: 80px;
+    background: #fdfaf4;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    transition: 0.3s;
+}
+
+.card:hover .icon-circle {
+    background: #c5a059;
+}
+
+.card:hover .icon-circle i {
+    color: white !important;
+}
+
+/* Newsletter Input Styling */
+#subscriberEmail {
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+#subscriberEmail:focus {
+    border-color: #c5a059;
+    box-shadow: 0 0 0 0.25 cold rgba(197, 160, 89, 0.25);
+    background: rgba(255,255,255,0.05);
+}
+
+/* Navbar Professional Polish */
+.navbar {
+    padding: 1rem 0;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+/* Normal view: Hide the slip on the website */
+#bill-slip {
+    display: none;
+}
+
+/* Print view: Show only the slip */
+@media print {
+    body * {
+        visibility: hidden; /* Hide everything else */
+    }
+    
+    #bill-slip, #bill-slip * {
+        visibility: visible;
+        display: block !important;
+    }
+
+    #bill-slip {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 80mm; /* Standard Receipt Width */
+        font-family: 'Courier New', monospace; /* Monospaced like real receipts */
+        padding: 10px;
+        color: #000;
+        background: #fff;
+    }
+
+    .dashed-line {
+        border-top: 1px dashed black;
+        margin: 8px 0;
+    }
+
+    .receipt-table {
+        width: 100%;
+        font-size: 13px;
+    }
+
+    .restaurant-name {
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 0;
+    }
+
+    .restaurant-info {
+        font-size: 11px;
+        text-align: center;
+    }
+
+    .total-row {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    /* Hide standard browser headers/footers */
+    @page {
+        margin: 0;
+    }
+}
+/* Remove the blue highlight/outline on click for all interactive elements */
+a:focus, button:focus, input:focus, textarea:focus, .gallery-container:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Professional gold focus state for buttons */
+.btn:focus {
+    box-shadow: 0 0 0 0.25rem rgba(197, 160, 89, 0.25) !important;
+}
+
+/* Remove blue link selection color */
+::selection {
+    background: rgba(197, 160, 89, 0.3); /* Transparent gold instead of blue */
+    color: #000;
+}
+
+/* Ensure the navbar links don't turn blue on mobile/click */
+.nav-link, .navbar-brand, .btn {
+    -webkit-tap-highlight-color: transparent;
+}

@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="bg-dark py-5 mb-5 shadow-lg position-relative" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1200') center/cover;">
+    <div class="container text-center py-4">
+        <h1 class="display-3 text-white fw-bold" style="font-family: 'Playfair Display';">Our Signature Menu</h1>
+        <div class="mx-auto bg-warning mb-3" style="height: 4px; width: 80px; border-radius: 2px;"></div>
+        <p class="text-warning lead fw-light">Handcrafted flavors and seasonal ingredients.</p>
+    </div>
+</section>
+
+<div class="container mb-5">
+    <div class="row mb-5">
+        <div class="col-12 d-flex justify-content-center">
+            <div class="btn-group shadow-sm bg-white rounded-pill p-1" role="group">
+                <button type="button" class="btn btn-dark rounded-pill px-4 me-1 active" onclick="filterMenu('all', event)">All</button>
+                {% for category in categories %}
+                <button type="button" class="btn btn-outline-dark border-0 rounded-pill px-4 me-1" onclick="filterMenu('{{ category.name|lower }}', event)">
+                    {{ category.name }}
+                </button>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4" id="menu-grid">
+        {% if items %}
+            {% for item in items %}
+            <div class="col-md-6 col-lg-4 menu-item-card" data-category="{{ item.category.name|lower if item.category else 'general' }}">
+                <div class="card h-100 border-0 shadow-sm hover-up overflow-hidden">
+                    <div class="position-relative overflow-hidden">
+                        <img src="{{ item.image_url or 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500' }}" 
+                             class="card-img-top dish-img" alt="{{ item.name }}">
+                        <div class="category-badge">{{ item.category.name if item.category else 'Chef Special' }}</div>
+                    </div>
+                    
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title fw-bold text-dark mb-0">{{ item.name }}</h5>
+                            <span class="text-success fw-bold fs-5">${{ "%.2f"|format(item.price) }}</span>
+                        </div>
+                        <p class="card-text text-muted flex-grow-1 small">{{ item.description[:100] }}{% if item.description|length > 100 %}...{% endif %}</p>
+                        
+                        <div class="mt-auto">
+                            <button 
+                                onclick="addToCart('{{ item.id }}', '{{ item.name }}', {{ item.price }})" 
+                                class="btn btn-warning w-100 fw-bold py-2 shadow-sm transition-3d">
+                                <i class="bi bi-plus-circle me-2"></i>Add to Order
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center py-5">
+                <div class="p-5 bg-light rounded-3 border">
+                    <i class="bi bi-search display-1 text-muted"></i>
+                    <h3 class="mt-3">No dishes found</h3>
+                    <p class="text-muted">We're updating our seasonal offerings. Please check back shortly.</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    /* Card Hover Animation */
+    .hover-up {
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+    .hover-up:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+    }
+
+    /* Image Effect */
+    .dish-img {
+        height: 240px;
+        object-fit: cover;
+        transition: transform 0.8s ease;
+    }
+    .card:hover .dish-img {
+        transform: scale(1.1);
+    }
+
+    /* Category Badge Styling */
+    .category-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: white;
+        color: #B8860B; /* Dark Gold */
+        padding: 0.35rem 1rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Smooth Button Transition */
+    .transition-3d:active {
+        transform: translateY(2px);
+    }
+
+    .menu-item-card {
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+</style>
+
+<script>
+    function filterMenu(category, event) {
+        // Handle UI button active state
+        const buttons = document.querySelectorAll('.btn-group .btn');
+        buttons.forEach(btn => {
+            btn.classList.remove('btn-dark', 'active');
+            btn.classList.add('btn-outline-dark');
+        });
+        
+        const clickedBtn = event.currentTarget;
+        clickedBtn.classList.add('btn-dark', 'active');
+        clickedBtn.classList.remove('btn-outline-dark');
+
+        // Filter Grid Items
+        const cards = document.querySelectorAll('.menu-item-card');
+        cards.forEach(card => {
+            const itemCat = card.getAttribute('data-category');
+            if (category === 'all' || itemCat === category) {
+                card.style.display = 'block';
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'scale(1)';
+                }, 10);
+            } else {
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    card.style.display = 'none';
+                }, 300);
+            }
+        });
+    }
+</script>
+
+{% endblock %}

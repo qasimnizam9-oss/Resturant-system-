@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Grand Bistro | Fine Dining</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        /* Sticky Footer & Layout Logic */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            background-color: #fcfcfc;
+        }
+        main {
+            flex: 1;
+        }
+
+        /* Footer Custom Styling */
+        footer a {
+            transition: 0.3s;
+            color: #adb5bd;
+            text-decoration: none;
+        }
+        footer a:hover {
+            color: #ffc107 !important;
+            padding-left: 5px;
+        }
+        .social-icons i {
+            font-size: 1.4rem;
+            transition: 0.3s;
+        }
+        .social-icons i:hover {
+            color: #ffc107;
+            transform: translateY(-3px);
+            display: inline-block;
+        }
+
+        /* Newsletter Input Styling */
+        .newsletter-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+            color: white !important;
+        }
+        .newsletter-input:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #ffc107;
+            box-shadow: none;
+        }
+        .newsletter-input::placeholder {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" style="font-family: 'Playfair Display'; font-size: 1.8rem;" href="/">
+                <span class="text-warning">GRAND</span> BISTRO
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center text-center">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/menu">Menu</a></li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link text-warning border border-warning rounded px-2 mx-lg-2 my-2 my-lg-0" href="/admin" style="font-size: 0.85rem;">
+                            <i class="bi bi-shield-lock me-1"></i>Staff Admin
+                        </a>
+                    </li>
+
+                    <li class="nav-item px-lg-3">
+                        <a class="nav-link position-relative" href="/cart">
+                            <i class="bi bi-cart3 fs-5"></i>
+                            <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">
+                                0
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item mt-2 mt-lg-0">
+                        <a class="btn btn-warning fw-bold px-4 rounded-pill shadow-sm" href="/reserve">Book a Table</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast align-items-center text-white bg-success border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <span id="toast-message">Action successful!</span>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white pt-5 pb-4 mt-5 border-top border-warning">
+        <div class="container text-center text-md-start">
+            <div class="row">
+                
+                <div class="col-md-5 col-lg-4 mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-warning" style="font-family: 'Playfair Display';">Grand Bistro</h5>
+                    <p class="small text-muted">Exquisite dining since 2010. Join our newsletter for secret recipes, weekend specials, and exclusive offers delivered to your inbox.</p>
+                    
+                    <div class="mt-4 pe-md-4">
+                        <div class="input-group mb-2">
+                            <input type="email" id="newsletter-email" class="form-control newsletter-input" placeholder="Your Email Address" style="border-radius: 25px 0 0 25px;">
+                            <button id="newsletter-btn" class="btn btn-warning fw-bold px-4" type="button" style="border-radius: 0 25px 25px 0;">Join</button>
+                        </div>
+                        <small id="newsletter-msg" class="text-muted">We respect your privacy. Unsubscribe anytime.</small>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-lg-2 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-warning">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/menu">Our Menu</a></li>
+                        <li class="mb-2"><a href="/reserve">Table Booking</a></li>
+                        <li class="mb-2"><a href="/cart">Current Order</a></li>
+                        <li class="mb-2"><a href="/login">Admin Login</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 col-lg-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-warning">Contact & Hours</h5>
+                    <p class="small mb-2"><i class="bi bi-geo-alt-fill text-warning me-2"></i>  at the Pakistan Fasilabad</p>
+                    <p class="small mb-2"><i class="bi bi-telephone-fill text-warning me-2"></i> +92 307 1464131</p>
+                    <p class="small mb-3"><i class="bi bi-clock-fill text-warning me-2"></i> Open: 12:00 PM - 11:30 PM</p>
+                    
+                    <div class="social-icons pt-2">
+                        <a href="#" class="me-3 text-white"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="me-3 text-white"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="me-3 text-white"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-whatsapp"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <hr class="my-4 bg-secondary opacity-25">
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p class="small mb-0 text-muted">&copy; 2026 The Grand Bistro. All Rights Reserved. Designed for Excellence.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    <script>
+        // 1. Synchronize cart count badge
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('restaurantCart')) || [];
+            const badge = document.getElementById('cart-count');
+            if(badge) {
+                badge.innerText = cart.length;
+            }
+        }
+        
+        // 2. Real Newsletter Functionality (Connecting to Backend)
+        document.getElementById('newsletter-btn').addEventListener('click', function() {
+            const emailInput = document.getElementById('newsletter-email');
+            const messageArea = document.getElementById('newsletter-msg');
+            const email = emailInput.value.trim();
+            const btn = this;
+
+            // Basic Check
+            if (email === "" || !email.includes('@')) {
+                messageArea.innerText = "Please enter a valid email address.";
+                messageArea.classList.replace('text-muted', 'text-danger');
+                return;
+            }
+
+            // UI Feedback: Loading
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+            btn.disabled = true;
+
+            // SEND DATA TO BACKEND
+            fetch('/subscribe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: email }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === "success") {
+                    emailInput.value = "";
+                    btn.innerHTML = 'Joined!';
+                    btn.classList.replace('btn-warning', 'btn-success');
+                    
+                    messageArea.innerText = "Success! You're on the list.";
+                    messageArea.classList.replace('text-muted', 'text-success');
+                    messageArea.classList.replace('text-danger', 'text-success');
+
+                    // Trigger Toast
+                    const toastMsg = document.getElementById('toast-message');
+                    toastMsg.innerText = "Subscription successful! Welcome to the Bistro.";
+                    const toast = new bootstrap.Toast(document.getElementById('liveToast'));
+                    toast.show();
+                } else {
+                    throw new Error(data.message);
+                }
+            })
+            .catch((error) => {
+                btn.innerHTML = 'Join';
+                btn.disabled = false;
+                messageArea.innerText = "Error: Could not subscribe. Try again.";
+                messageArea.classList.replace('text-muted', 'text-danger');
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', updateCartBadge);
+    </script>
+</body>
+</html>

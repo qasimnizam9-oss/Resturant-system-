@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5 text-center no-print">
+    <div class="mb-4">
+        <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
+        <h2 class="fw-bold mt-3" style="font-family: 'Playfair Display';">Order Successful!</h2>
+        <p class="text-muted">Order #{{ order.id }} has been processed.</p>
+    </div>
+    
+    <div class="d-flex justify-content-center gap-3">
+        <button onclick="window.print()" class="btn btn-primary rounded-pill px-4 shadow-sm">
+            <i class="bi bi-printer me-2"></i>Print Receipt
+        </button>
+        <a href="{{ url_for('admin_orders') }}" class="btn btn-outline-secondary rounded-pill px-4">
+            <i class="bi bi-arrow-left me-2"></i>Back to Orders
+        </a>
+    </div>
+</div>
+
+<div id="bill-slip" class="receipt-card">
+    <div class="receipt-header text-center">
+        <h2 class="restaurant-name" style="margin-bottom: 5px;">THE GRAND BISTRO</h2>
+        <p class="restaurant-info" style="font-size: 12px; line-height: 1.4;">
+            123 Culinary Ave, Karachi, PK<br>
+            NTN: 1234567-8 | Tel: +92 300 1234567
+        </p>
+        <div class="dashed-line"></div>
+        <div class="order-meta d-flex justify-content-between" style="font-size: 13px;">
+            <span>Order ID: #{{ order.id }}</span>
+            <span>Date: {{ order.created_at.strftime('%d/%m/%Y %H:%M') }}</span>
+        </div>
+        <div class="dashed-line"></div>
+    </div>
+
+    <table class="receipt-table w-100" style="font-size: 13px; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th class="text-start" style="padding-bottom: 5px;">Item</th>
+                <th class="text-center" style="padding-bottom: 5px;">Qty</th>
+                <th class="text-end" style="padding-bottom: 5px;">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order.items %}
+            <tr>
+                {% if item.menu_item %}
+                    <td class="text-start" style="padding: 3px 0;">{{ item.menu_item.name }}</td>
+                    <td class="text-center">{{ item.quantity }}</td>
+                    <td class="text-end">Rs. {{ "{:,.0f}".format(item.menu_item.price * item.quantity) }}</td>
+                {% else %}
+                    <td class="text-start text-danger" style="padding: 3px 0;">[Deleted Item]</td>
+                    <td class="text-center">{{ item.quantity }}</td>
+                    <td class="text-end">Rs. 0</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="dashed-line"></div>
+    
+    <div class="receipt-totals" style="font-size: 14px;">
+        <div class="d-flex justify-content-between">
+            <span>Subtotal:</span>
+            <span>Rs. {{ "{:,.0f}".format(order.total_amount) }}</span>
+        </div>
+        <div class="dashed-line"></div>
+        <div class="d-flex justify-content-between total-row fw-bold" style="font-size: 16px;">
+            <span>GRAND TOTAL:</span>
+            <span>Rs. {{ "{:,.0f}".format(order.total_amount) }}</span>
+        </div>
+    </div>
+
+    <div class="receipt-footer text-center mt-4">
+        <p class="mb-1" style="font-size: 12px;">Thank you for choosing The Grand Bistro!</p>
+        <p class="small text-uppercase" style="font-size: 10px; letter-spacing: 1px;">Software by Qasim Nizam</p>
+    </div>
+</div>
+
+<style>
+    #bill-slip { display: none; margin: 0 auto; padding: 20px; background: white; }
+    @media print {
+        body * { visibility: hidden; }
+        nav, .no-print, footer, .navbar { display: none !important; }
+        #bill-slip, #bill-slip * { visibility: visible; display: block !important; }
+        #bill-slip { display: block !important; position: absolute; left: 0; top: 0; width: 80mm; font-family: 'Courier New', monospace; }
+        .receipt-table { display: table !important; width: 100% !important; }
+        .receipt-table tr { display: table-row !important; }
+        .receipt-table td, .receipt-table th { display: table-cell !important; }
+        .dashed-line { border-top: 1px dashed black !important; margin: 8px 0 !important; width: 100%; }
+        @page { size: 80mm auto; margin: 0; }
+    }
+</style>
+{% endblock %}

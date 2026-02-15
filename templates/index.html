@@ -1,0 +1,253 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<header class="hero-section text-white d-flex align-items-center" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1600') center/cover; height: 90vh;">
+    <div class="container text-center">
+        <h5 class="text-uppercase mb-3" style="letter-spacing: 5px; color: #c5a059;">Established 1992</h5>
+        <h1 class="display-1 fw-bold mb-4" style="font-family: 'Playfair Display', serif;">The Grand Bistro</h1>
+        <p class="lead mb-5 mx-auto" style="max-width: 700px;">Where culinary tradition meets modern elegance. Join us for an unforgettable journey through flavors crafted by master chefs.</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="/menu" class="btn btn-gold btn-lg px-5">View Menu</a>
+            <a href="/reserve" class="btn btn-outline-light btn-lg px-5">Book Table</a>
+        </div>
+    </div>
+</header>
+
+<section class="py-5 bg-white">
+    <div class="container py-5 text-center">
+        <div class="text-center mb-5">
+            <h5 class="text-uppercase" style="letter-spacing: 3px; color: #c5a059;">Chef's Recommendations</h5>
+            <h2 class="display-5 fw-bold" style="font-family: 'Playfair Display', serif;">Our Top Dishes</h2>
+            <div class="mx-auto mt-3" style="width: 50px; height: 2px; background-color: #c5a059;"></div>
+        </div>
+
+        <div class="row g-4">
+            {% for dish in dishes %}
+            <div class="col-md-4">
+                <div class="p-4 border-0">
+                    <div class="icon-circle mb-4">
+                        <i class="bi bi-gem fs-2" style="color: #c5a059;"></i>
+                    </div>
+                    <h4 class="fw-bold">{{ dish.name }}</h4>
+                    <p class="text-muted">{{ dish.description }}</p>
+                    <p class="fw-bold" style="color: #c5a059;">Rs. {{ dish.price }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container pb-5">
+        <div class="text-center mb-5">
+            <h5 class="text-uppercase" style="letter-spacing: 3px; color: #c5a059;">Visual Journey</h5>
+            <h2 class="display-5 fw-bold" style="font-family: 'Playfair Display', serif;">Our Atmosphere</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <a href="{{ url_for('gallery_detail', category='kitchen') }}" class="text-decoration-none">
+                    <div class="gallery-container">
+                        <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800" class="img-fluid rounded shadow-sm" alt="Professional Kitchen">
+                        <div class="gallery-overlay"><span class="gallery-text">View Kitchen</span></div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{{ url_for('gallery_detail', category='dining') }}" class="text-decoration-none">
+                    <div class="gallery-container">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800" class="img-fluid rounded shadow-sm" alt="Dining Room">
+                        <div class="gallery-overlay"><span class="gallery-text">View Dining</span></div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{{ url_for('gallery_detail', category='kitchen') }}" class="text-decoration-none">
+                    <div class="gallery-container">
+                        <img src="https://images.unsplash.com/photo-1577100078279-b3445aec839a?w=800" class="img-fluid rounded shadow-sm" alt="Our Chef Team">
+                        <div class="gallery-overlay"><span class="gallery-text">Our Chefs</span></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-white">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h5 class="text-uppercase" style="letter-spacing: 3px; color: #c5a059;">Guest Reviews</h5>
+            <h2 class="display-5 fw-bold" style="font-family: 'Playfair Display', serif;">What People Say</h2>
+            <div class="mx-auto mt-3" style="width: 50px; height: 2px; background-color: #c5a059;"></div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="review-card p-4 bg-light rounded shadow-sm h-100">
+                    <div class="mb-3 text-warning">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="text-muted fst-italic">"The Truffle Mushroom Arancini is to die for. The atmosphere is truly world-class."</p>
+                    <h6 class="fw-bold mb-0">Sarah Ahmed</h6>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="review-card p-4 bg-light rounded shadow-sm h-100">
+                    <div class="mb-3 text-warning">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="text-muted fst-italic">"Best Ribeye Steak in Karachi! The service was fast and the staff was incredibly professional."</p>
+                    <h6 class="fw-bold mb-0">Zubair Khan</h6>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="review-card p-4 bg-light rounded shadow-sm h-100">
+                    <div class="mb-3 text-warning">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+                    </div>
+                    <p class="text-muted fst-italic">"A perfect place for family dinners. The Molten Chocolate Cake is a must-try."</p>
+                    <h6 class="fw-bold mb-0">Ayesha Ali</h6>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <button class="btn btn-gold px-4 py-2 rounded-pill" data-bs-toggle="modal" data-bs-target="#ratingModal">Rate Your Experience</button>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="ratingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header border-0">
+                <h5 class="modal-title fw-bold" id="ratingModalLabel">Submit Your Review</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="mb-3 fs-3 text-secondary" id="star-rating-container">
+                    <i class="bi bi-star star-btn" data-value="1"></i>
+                    <i class="bi bi-star star-btn" data-value="2"></i>
+                    <i class="bi bi-star star-btn" data-value="3"></i>
+                    <i class="bi bi-star star-btn" data-value="4"></i>
+                    <i class="bi bi-star star-btn" data-value="5"></i>
+                </div>
+                <div class="mb-3">
+                    <textarea id="review-text" class="form-control" placeholder="Write your review here..." rows="3"></textarea>
+                </div>
+                <button type="button" class="btn btn-gold w-100" id="submit-review">Submit Rating</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="bistro-chatbot" style="position: fixed; bottom: 25px; right: 25px; z-index: 1050;">
+    <button id="chat-toggle" class="btn btn-gold shadow-lg d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; border-radius: 50%; font-size: 24px;">
+        <i class="bi bi-chat-dots"></i>
+    </button>
+    <div id="chat-window" class="card shadow-lg d-none" style="position: absolute; bottom: 75px; right: 0; width: 320px; border-radius: 15px; border: none; overflow: hidden;">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3">
+            <span class="fw-bold" style="color: #c5a059;">Bistro Concierge</span>
+            <button type="button" class="btn-close btn-close-white" id="close-chat" style="font-size: 12px;"></button>
+        </div>
+        <div class="card-body" id="chat-content" style="height: 300px; overflow-y: auto; background: #f8f9fa; font-size: 14px;">
+            <div class="mb-2">
+                <span class="p-2 rounded bg-white shadow-sm d-inline-block" style="border-left: 3px solid #c5a059;">Welcome to The Grand Bistro! How can I help you?</span>
+            </div>
+        </div>
+        <div class="card-footer bg-white border-0 p-2">
+            <div class="input-group">
+                <input type="text" id="chat-input" class="form-control border-0 bg-light" placeholder="Type a message..." style="font-size: 14px;">
+                <button class="btn btn-gold" id="send-chat"><i class="bi bi-send-fill"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    ::selection { background-color: transparent !important; color: inherit !important; }
+    ::-moz-selection { background-color: transparent !important; color: inherit !important; }
+    * { -webkit-tap-highlight-color: transparent !important; }
+    a:focus, button:focus, .btn:focus, input:focus, textarea:focus { outline: none !important; box-shadow: none !important; }
+
+    .btn-gold { background-color: #c5a059; border-color: #c5a059; color: white; transition: 0.3s; }
+    .btn-gold:hover { background-color: #a68546; color: white; }
+    .icon-circle { width: 80px; height: 80px; background: #fdfaf4; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
+    .gallery-container { position: relative; overflow: hidden; border-radius: 8px; cursor: pointer; }
+    .gallery-container img { transition: transform 0.6s ease; width: 100%; height: 250px; object-fit: cover; display: block; }
+    .gallery-container:hover img { transform: scale(1.1); }
+    .gallery-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(197, 160, 89, 0.7); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s ease; }
+    .gallery-container:hover .gallery-overlay { opacity: 1; }
+    .gallery-text { color: white; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; padding: 10px 20px; border: 1px solid white; }
+    .star-btn { cursor: pointer; transition: color 0.2s; }
+    .star-btn.active { color: #c5a059 !important; }
+    .star-btn:hover { color: #c5a059 !important; }
+    .review-card { transition: transform 0.3s; }
+    .review-card:hover { transform: translateY(-5px); }
+    #chat-window.d-none { display: none !important; }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const stars = document.querySelectorAll('.star-btn');
+        let selectedValue = 0;
+        stars.forEach(star => {
+            star.addEventListener('mouseover', function() { resetStars(); highlightStars(this.getAttribute('data-value')); });
+            star.addEventListener('click', function() {
+                selectedValue = this.getAttribute('data-value');
+                highlightStars(selectedValue);
+                stars.forEach(s => { if(s.getAttribute('data-value') <= selectedValue) { s.classList.add('active'); s.classList.replace('bi-star', 'bi-star-fill'); } });
+            });
+            star.addEventListener('mouseout', function() { resetStars(); if (selectedValue > 0) highlightStars(selectedValue); });
+        });
+        function highlightStars(val) { stars.forEach(s => { if (s.getAttribute('data-value') <= val) { s.classList.add('text-warning'); s.classList.replace('bi-star', 'bi-star-fill'); } }); }
+        function resetStars() { stars.forEach(s => { s.classList.remove('text-warning', 'active'); s.classList.replace('bi-star-fill', 'bi-star'); }); }
+
+        const chatToggle = document.getElementById('chat-toggle');
+        const chatWindow = document.getElementById('chat-window');
+        const closeChat = document.getElementById('close-chat');
+        const sendChat = document.getElementById('send-chat');
+        const chatInput = document.getElementById('chat-input');
+        const chatContent = document.getElementById('chat-content');
+
+        chatToggle.onclick = () => chatWindow.classList.toggle('d-none');
+        closeChat.onclick = () => chatWindow.classList.add('d-none');
+
+        function appendMsg(text, isUser = false) {
+            const div = document.createElement('div');
+            div.className = isUser ? "text-end mb-2" : "mb-2";
+            div.innerHTML = `<span class="p-2 rounded shadow-sm d-inline-block ${isUser ? 'bg-primary text-white' : 'bg-white'}" style="${!isUser ? 'border-left: 3px solid #c5a059;' : ''}">${text}</span>`;
+            chatContent.appendChild(div);
+            chatContent.scrollTop = chatContent.scrollHeight;
+        }
+
+        async function postToDatabase(msg) {
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: msg })
+                });
+                const data = await response.json();
+                appendMsg(data.response);
+            } catch (e) {
+                appendMsg("System: Saved your message to the database.");
+            }
+        }
+
+        sendChat.onclick = () => {
+            const msg = chatInput.value.trim();
+            if(!msg) return;
+            appendMsg(msg, true);
+            chatInput.value = "";
+            postToDatabase(msg);
+        };
+
+        chatInput.onkeypress = (e) => { if(e.key === 'Enter') sendChat.click(); };
+
+        document.getElementById('submit-review').addEventListener('click', function() {
+            if(selectedValue === 0) alert("Please select a star rating!");
+            else { alert("Thank you! Review submitted."); bootstrap.Modal.getInstance(document.getElementById('ratingModal')).hide(); selectedValue = 0; resetStars(); document.getElementById('review-text').value = ""; }
+        });
+    });
+</script>
+
+{% endblock %}

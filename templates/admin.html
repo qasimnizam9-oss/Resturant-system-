@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold" style="font-family: 'Playfair Display'; color: #2c3e50;">Manager Dashboard</h1>
+        <p class="text-muted">Welcome back, {{ current_user.username }}. Select a module to manage.</p>
+    </div>
+
+    <div class="row g-4 mb-5 justify-content-center">
+        <div class="col-md-4 col-lg-2">
+            <div class="card h-100 border-0 shadow-sm action-card text-center p-3">
+                <div class="icon-box bg-primary-soft mb-3">
+                    <i class="bi bi-receipt-cutoff text-primary h2"></i>
+                </div>
+                <h5 class="fw-bold">Orders</h5>
+                <p class="text-muted extra-small">Manage active customer orders.</p>
+                <a href="{{ url_for('admin_orders') }}" class="btn btn-primary w-100 rounded-pill mt-auto">Open</a>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2">
+            <div class="card h-100 border-0 shadow-sm action-card text-center p-3">
+                <div class="icon-box bg-warning-soft mb-3">
+                    <i class="bi bi-calendar-check text-warning h2"></i>
+                </div>
+                <h5 class="fw-bold">Bookings</h5>
+                <p class="text-muted extra-small">Manage guest table schedules.</p>
+                <a href="{{ url_for('admin_reservations') }}" class="btn btn-warning w-100 rounded-pill mt-auto text-dark">Check</a>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2">
+            <div class="card h-100 border-0 shadow-sm action-card text-center p-3">
+                <div class="icon-box bg-success-soft mb-3">
+                    <i class="bi bi-egg-fried text-success h2"></i>
+                </div>
+                <h5 class="fw-bold">Menu</h5>
+                <p class="text-muted extra-small">Add or edit dishes and prices.</p>
+                <a href="{{ url_for('admin_menu') }}" class="btn btn-success w-100 rounded-pill mt-auto">Edit</a>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2">
+            <div class="card h-100 border-0 shadow-sm action-card text-center p-3">
+                <div class="icon-box bg-info-soft mb-3">
+                    <i class="bi bi-chat-left-dots text-info h2"></i>
+                </div>
+                <h5 class="fw-bold">Chats</h5>
+                <p class="text-muted extra-small">Review chatbot inquiries.</p>
+                <a href="{{ url_for('admin_chats') }}" class="btn btn-info w-100 rounded-pill mt-auto text-white">View</a>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2">
+            <div class="card h-100 border-0 shadow-sm action-card text-center p-3">
+                <div class="icon-box bg-danger-soft mb-3">
+                    <i class="bi bi-shield-lock text-danger h2"></i>
+                </div>
+                <h5 class="fw-bold">Settings</h5>
+                <p class="text-muted extra-small">Update admin password.</p>
+                <a href="{{ url_for('admin_settings') }}" class="btn btn-danger w-100 rounded-pill mt-auto">Secure</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="p-4 bg-light rounded-4 border-0 text-center shadow-sm">
+                <p class="mb-0 text-secondary">
+                    <i class="bi bi-info-circle me-2"></i> 
+                    Currently managing <strong>{{ orders|length }}</strong> active orders and <strong>{{ reservations|length }}</strong> upcoming reservations.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Professional Styling for Dashboard Hub */
+    .action-card { 
+        transition: all 0.3s ease; 
+        border-radius: 20px; 
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .action-card:hover { 
+        transform: translateY(-10px); 
+        box-shadow: 0 15px 45px rgba(0,0,0,0.08) !important; 
+    }
+    
+    .icon-box { 
+        width: 70px; 
+        height: 70px; 
+        line-height: 80px; 
+        border-radius: 18px; 
+        margin: 0 auto; 
+    }
+
+    .extra-small { font-size: 0.75rem; }
+
+    /* Soft Backgrounds */
+    .bg-primary-soft { background: #eef2ff; }
+    .bg-warning-soft { background: #fffbeb; }
+    .bg-success-soft { background: #f0fdf4; }
+    .bg-info-soft { background: #e0f7fa; }
+    .bg-danger-soft { background: #fff1f2; }
+
+    /* Button Styling */
+    .btn-info { background-color: #c5a059; border: none; }
+    .btn-info:hover { background-color: #a68546; }
+    .btn-danger { background-color: #2c3e50; border: none; }
+    .btn-danger:hover { background-color: #1a252f; }
+    
+    .btn-sm { font-weight: 600; padding: 8px 20px; }
+</style>
+{% endblock %}

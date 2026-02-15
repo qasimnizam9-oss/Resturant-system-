@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-5 mt-4">
+        <h5 class="text-uppercase" style="letter-spacing: 3px; color: #c5a059;">Gallery</h5>
+        <h2 class="display-5 fw-bold" style="font-family: 'Playfair Display', serif;">{{ data.title }}</h2>
+        <p class="text-muted mx-auto" style="max-width: 600px;">{{ data.description }}</p>
+    </div>
+
+    <div class="row g-4">
+        {% for img in data.images %}
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm overflow-hidden rounded-4">
+                <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800" class="img-fluid" alt="Gallery Image">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="text-center mt-5">
+        <a href="/" class="btn btn-gold px-4 rounded-pill">Back to Home</a>
+    </div>
+</div>
+{% endblock %}
